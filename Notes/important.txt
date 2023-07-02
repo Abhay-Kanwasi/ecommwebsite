@@ -1,0 +1,1 @@
+slugfield = It is used for make dynamic url because we don't want our url to be like 1 for a product than 2 for another product and so on instead we make a dynamic url(It can be the name of product itself, it can be product model included with that). So it makes our url more authenticate for SEO
