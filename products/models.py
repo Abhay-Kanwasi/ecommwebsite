@@ -15,6 +15,11 @@ class Category(BaseModel):
     def __str__(self) -> str:
         return self.category_name
 
+    # This function will accept the size
+    def get_product_prize_by_size(self,size):
+        return self.price + SizeVariant.objects.get(size_name = size).price
+
+
 
 class ColorVariant(BaseModel):
     color_name = models.CharField(max_length=100)
@@ -56,3 +61,8 @@ class ProductImage(BaseModel):
     image = models.ImageField(upload_to = "product")
 
 
+class Coupon(BaseModel):
+    coupon_code = models.CharField(max_length=10)
+    is_expired = models.BooleanField(default=False)
+    discount_price = models.IntegerField(default=100)
+    minimum_amount = models.IntegerField(default=500)

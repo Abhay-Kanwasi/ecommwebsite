@@ -1,11 +1,11 @@
-{% extends "base/base.html" %}
+{% extends "base/base.html"%}
 
-{% block start %}
+{%  block start %}
 
 
-<div>
+<div class="container mt-5 pt-5">
     <div class="row">
-
+        
         {% for product in products %}
         <div class="col-md-3">
             <figure class="card card-product-grid">
@@ -13,17 +13,18 @@
                 <figcaption class="info-wrap border-top">
                     <a href="{% url 'get_product' product.slug %}" class="title">
                         <b>{{product.product_name}}</b></a>
-                    <div class="price mt-2">${{product.price}}</div> <!-- price-wrap.// -->
+                    <div class="price mt-2">${{product.price}}.00</div> <!-- price-wrap.// -->
                 </figcaption>
             </figure> <!-- card // -->
         </div> <!-- col.// -->
 
         {% endfor %}
+      
+        
+       
     </div>
-</div>
 
-
-
+    </div>
 
 
 {% endblock %}
