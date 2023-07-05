@@ -3,7 +3,7 @@ from django.contrib import messages
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponseRedirect, HttpResponse
-
+from accounts.models import Cart
 # Create your views here.
 from .models import Profile
 
@@ -68,4 +68,9 @@ def activate_email(request, email_token):
     
     except Exception as e:
         return HttpResponse('Invalid email token')
-    
+
+def cart(request):
+    context = {'cart' : Cart.objects.get(is_paid = False, user = request.user)}
+    if request.method == 'POST':
+
+        return render(request, 'accounts/cart.html')
