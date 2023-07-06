@@ -47,7 +47,7 @@ class Product(BaseModel):
     # It's possible for one product to be available of many colors and sizes
     color_variant = models.ManyToManyField(ColorVariant, blank=True) 
     size_variant = models.ManyToManyField(SizeVariant, blank=True)
-
+    
     def save(self, *args, **kwargs):
         self.slug = slugify(self.product_name)
         super(Product, self).save(*args, **kwargs)

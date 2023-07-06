@@ -1,11 +1,17 @@
-from django.shortcuts import render
-from products.models import Product
-from django.shortcuts import redirect
+from django.shortcuts import render, redirect
+from products.models import Product, SizeVariant
 
-from accounts.models import Cart, CartItems, SizeVariant
+from accounts.models import Cart, CartItems, Profile
 from django.http import HttpResponseRedirect
 
 def get_product(request , slug):
+    print('******')
+    print(request.user)
+    print('******')
+    
+    print(request.user.profile.get_cart_count)
+    profile = Profile.objects.create(user=request.user)
+    profile, created = Profile.objects.get_or_create(user=request.user)
     try:
         product = Product.objects.get(slug = slug)
         context = {'product' : product}
