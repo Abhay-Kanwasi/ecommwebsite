@@ -34,7 +34,10 @@ class Cart(BaseModel):
             if cart_item.size_variant:
                 size_variant_price = cart_item.size_variant.price
                 price.append(size_variant_price)
-    
+        if self.coupon:
+            if self.coupon.minimum_amount > sum(price):
+                return sum(price) - self.coupon.discount_price
+        
         return sum(price)
 
 
@@ -43,6 +46,19 @@ class CartItems(BaseModel):
     product = models.ForeignKey(Product, on_delete=models.SET_NULL, null=True, blank=True)
     color_variant = models.ForeignKey(ColorVariant, on_delete=models.SET_NULL, null=True, blank=True)
     size_variant = models.ForeignKey(SizeVariant, on_delete=models.SET_NULL, null=True, blank=True)
+
+    def get_product_price(self):
+        price = [self.product.price]
+
+        if self.color_variant:
+            color_varient_price = self.color_variant.price
+            price.append(color_varient_price)
+        
+        if self.size_variant:
+            size_variant_price = self.size_variant.price
+            price.append(size_variant_price)
+        
+        return sum(price)
     
 
 @receiver(post_save, sender=User)

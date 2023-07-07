@@ -1,17 +1,13 @@
 from django.shortcuts import render, redirect
 from products.models import Product, SizeVariant
 
-from accounts.models import Cart, CartItems, Profile
-from django.http import HttpResponseRedirect
+from accounts.models import Profile
 
 def get_product(request , slug):
-    print('******')
-    print(request.user)
-    print('******')
     
-    print(request.user.profile.get_cart_count)
-    profile = Profile.objects.create(user=request.user)
-    profile, created = Profile.objects.get_or_create(user=request.user)
+    # print(request.user.profile.get_cart_count)
+    print(Profile.profile_image)
+    # profile, created = Profile.objects.get_or_create(user=request.user)
     try:
         product = Product.objects.get(slug = slug)
         context = {'product' : product}
@@ -26,18 +22,3 @@ def get_product(request , slug):
     except Exception as e:
         print(e)
 
-def add_to_cart(request, uid):
-    variant = request.GET.get('variant')
-    product = Product.objects.get(uid = uid)
-    user = request.user
-    cart, _ = Cart.objects.get_or_create(user = user, is_paid = False)
-
-    cart_item = CartItems.objects.create(cart = cart, product = product)
-
-    if variant:
-        variant = request.GET.get('variant')
-        size_variant = SizeVariant.objects.get(size_name = variant)
-        cart_item.size_variant = size_variant
-        cart_item.save()
-
-    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
