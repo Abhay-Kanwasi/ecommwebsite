@@ -40,7 +40,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'products',
     'accounts',
-    'home'
+    'home',
+    'rest_framework',
+    'razorpaybackend.apps.RazorpaybackendConfig'
 ]
 
 MIDDLEWARE = [
@@ -141,8 +143,10 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_USE_TLS = True
 EMAIL_PORT = 587
-# EMAIL_HOST_USER = ' '
-# EMAIL_HOST_PASSWORD = ' '
+EMAIL_HOST_USER = ' '
+EMAIL_HOST_PASSWORD = ' '
 
-KEY = 'rzp_test_UtZnDV15GUVJu4',
-SECRET = 'dvAWuAA7BasHwDbnGUkbS8V6'
+
+# Razorpay
+RAZORPAY_KEY_ID = os.environ.get("RAZORPAY_KEY_ID")
+RAZORPAY_KEY_SECRET_ID = os.environ.get("RAZORPAY_KEY_SECRET_ID")

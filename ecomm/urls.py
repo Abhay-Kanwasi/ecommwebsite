@@ -25,6 +25,7 @@ urlpatterns = [
     path('product/', include('products.urls')),
     path('accounts/', include('accounts.urls')),
     path('admin/', admin.site.urls),
+    path('razorpay/', include('razorpaybackend.api.urls'))
 ]
 
 if settings.DEBUG:
